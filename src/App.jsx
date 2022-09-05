@@ -1,6 +1,8 @@
 import Die from './components/Die'
 import React from 'react'
 
+// unique string ID generator for JavaScript
+import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
 
 
 function App() {
@@ -13,21 +15,30 @@ function App() {
     let randomNumbers = []
 
     for (let i = 0; i < 10; i++) {
-      const randomNumber = Math.floor(Math.random() * 6 + 1)
+      const randomNumber = {
+        value: Math.floor(Math.random() * 6 + 1),
+        isHeld: false,
+        id: nanoid()
+      }
       randomNumbers.push(randomNumber)
     }
     return randomNumbers
   }
 
+  // function that takes `id` as a parameter
+  // to pass that function down to each instance of the Die component so when each one is clicked, it logs its own unique ID property
+  function holdDice(id) {
+    console.log(id)
+  }
 
   // function for generate a new array of numbers and set the `dice` state to that new array
   function rollDice() {
     setDiceNumbers(allNewDice())
   }
 
-  
+
   // create diceNumbersElements from Die components
-  const diceNumbersElements = diceNumbers.map(diceNumber => <Die value={diceNumber} />)
+  const diceNumbersElements = diceNumbers.map(diceNumber => <Die key={diceNumber.id} id={diceNumber.id} value={diceNumber.value} isHeld={diceNumber.isHeld} holdDice={holdDice} />)
 
   return (
     <main>

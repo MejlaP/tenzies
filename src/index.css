@@ -47,10 +47,14 @@ main {
   cursor: pointer;
 }
 
+.die-box:hover {
+  outline-style: dotted;
+}
+
 .die-box h5 {
   font-family: 'Karla', sans-serif;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   line-height: 1.5rem;
   text-align: center;
   color: #2B283A;
@@ -69,4 +73,8 @@ main {
   font-size: 1.2rem;
   font-family: 'Karla', sans-serif;
   cursor: pointer;
+}
+
+#my-button:hover {
+  font-size: 1.3rem;
 }
