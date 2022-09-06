@@ -1,4 +1,4 @@
-# Scrimba - React Section 4 Project
+# Scrimba - React Section Project
 ## Tenzies
 
 I rebuilt the Tenzies app. I also added new features.
