@@ -4,6 +4,9 @@ import React from 'react'
 // unique string ID generator for JavaScript
 import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
 
+// after 'npm install react-confetti'
+import Confetti from 'react-confetti'
+
 
 function App() {
   // initial state diceNumbers with (allNewDice())
@@ -12,6 +15,9 @@ function App() {
   // initial state tenzies represents whether the user has won the game yet or not
   const [tenzies, setTenzies] = React.useState(false)
 
+  // initial state Total Wins
+  const [count, setCount] = React.useState(0)
+
   // effect that runs every time the `dice` state array changes
   // checks if all dice are held, and all dice have the same value
   React.useEffect(() => {
@@ -19,9 +25,14 @@ function App() {
     const firstPositionValue = diceNumbers[0].value
     const allSameValue = diceNumbers.every(diceNumber => diceNumber.value === firstPositionValue)
     if (allDiceHeld && allSameValue) {
-      console.log('You won')
+      setTenzies(true)
     }
   }, [diceNumbers])
+
+  // effect that runs every time the `tenzies` state change and add 1 point
+  React.useEffect(() => {
+    tenzies ? setCount(prevCount => prevCount + 1) : count
+  }, [tenzies])
 
   // function for generating new dice as object
   function generateNewDice() {
@@ -52,10 +63,15 @@ function App() {
 
   // function for checking if diceNumber.isHeld, else it generates new dice
   function rollDice() {
-    setDiceNumbers(prevDiceNumbers =>
-      prevDiceNumbers.map(diceNumber =>
-        diceNumber.isHeld ? diceNumber : generateNewDice()
-      ))
+    if (!tenzies) {
+      setDiceNumbers(prevDiceNumbers =>
+        prevDiceNumbers.map(diceNumber =>
+          diceNumber.isHeld ? diceNumber : generateNewDice()
+        ))
+    } else {
+      setTenzies(false)
+      setDiceNumbers(allNewDice())
+    }
   }
 
   // create diceNumbersElements from Die components
@@ -63,10 +79,17 @@ function App() {
 
   return (
     <main>
+      {/* If tenzies is true, render the confetti component  */}
+      {tenzies && <Confetti />}
+      <h1>Tenzies</h1>
+      <p>Roll until all dice are the same.
+        Click each die to freeze it at its current value between rolls.</p>
       <div className='dice-container'>
         {diceNumbersElements}
       </div>
-      <button id='my-button' onClick={rollDice}>Roll</button>
+      <h3>Total Wins: {count}</h3>
+      {/*If tenzies is true, change button text*/}
+      <button id='my-button' onClick={rollDice}>{tenzies ? "New Game" : "Roll"}</button>
     </main>
   )
 }
