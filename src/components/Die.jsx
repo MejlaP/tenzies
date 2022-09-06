@@ -1,5 +1,6 @@
 export default function Die(props) {
 
+    // for set style if isHeld is true -> change background
     const styles = {
         backgroundColor: props.isHeld ? '#59E391' : 'transparent'
     }
