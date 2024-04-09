@@ -1,6 +1,8 @@
 # Scrimba - React Section Project
 ## Tenzies
 
+### Link: https://tenzies-game-4f95ff.netlify.app/
+
 I rebuilt the Tenzies app. I also added new features.
 
 ![screen1](https://user-images.githubusercontent.com/90547920/188629811-9119e82a-576d-486a-bc7f-126663575a56.png)
